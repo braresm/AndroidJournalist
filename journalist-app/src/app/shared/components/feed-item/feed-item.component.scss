@@ -1,0 +1,32 @@
+.feed-item {
+  .content {
+    display: flex;
+    flex-direction: row;
+
+    img {
+      width: 240px;
+      max-width: 100%;
+      border-radius: 1rem;
+    }
+
+    .details {
+      margin-left: 1rem;
+
+      .text {
+        text-overflow: ellipsis;
+      }
+
+      .posted-date {
+        font-size: 0.85rem;
+        color: #70757a;
+        display: flex;
+        align-items: center;
+        margin: 0.5rem 0;
+
+        span {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  }
+}
