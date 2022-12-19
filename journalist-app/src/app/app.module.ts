@@ -11,27 +11,13 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Angular Material
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-
 // Custom components
-import { FeedComponent } from './public/components/feed/feed.component';
-import { FeedItemComponent } from './shared/components/feed-item/feed-item.component';
 import { NewsComponent } from './public/components/news/news.component';
 import { PageNotFoundComponent } from './public/components/page-not-found/page-not-found.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FeedComponent,
-    FeedItemComponent,
-    NewsComponent,
-    PageNotFoundComponent,
-  ],
+  declarations: [AppComponent, NewsComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -46,11 +32,7 @@ import { PageNotFoundComponent } from './public/components/page-not-found/page-n
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatChipsModule,
-    MatIconModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

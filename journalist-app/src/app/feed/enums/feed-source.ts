@@ -1,0 +1,4 @@
+enum FeedSource {
+  ANP,
+  EMAIL,
+}
