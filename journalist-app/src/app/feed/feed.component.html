@@ -20,11 +20,28 @@
             <div class="filter-content">
               <div class="filter-input">
                 <mat-form-field appearance="fill" class="w-100">
-                  <mat-label>Enter keywords</mat-label>
+                  <mat-label>Feed keywords</mat-label>
+                  <mat-chip-grid
+                    #feedKeywordGrid
+                    aria-label="Enter keywords"
+                    formControlName="keywords"
+                  >
+                    <ng-container *ngFor="let keyword of keywords.value">
+                      <mat-chip-row
+                        *ngIf="keyword"
+                        (removed)="removeKeyword(keyword)"
+                      >
+                        {{ keyword }}
+                        <button matChipRemove aria-label="'remove ' + keyword">
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip-row>
+                    </ng-container>
+                  </mat-chip-grid>
                   <input
-                    matInput
-                    placeholder="keyword1, keyword2"
-                    formControlName="kewords"
+                    placeholder="Write keyword and press enter"
+                    [matChipInputFor]="feedKeywordGrid"
+                    (matChipInputTokenEnd)="addKeyword($event)"
                   />
                 </mat-form-field>
               </div>
@@ -38,14 +55,19 @@
                 </mat-form-field>
               </div>
             </div>
-            <button
-              mat-flat-button
-              color="primary"
-              (click)="onFilterFeeds()"
-              [disabled]="!filterFeedsForm.valid"
-            >
-              Filter feeds
-            </button>
+            <div class="filter-actions">
+              <button
+                mat-flat-button
+                color="primary"
+                (click)="onApplyFilters()"
+                [disabled]="!filterFeedsForm.valid"
+              >
+                Apply filters
+              </button>
+              <button mat-flat-button color="accent" (click)="onResetFilters()">
+                Reset filters
+              </button>
+            </div>
           </form>
         </mat-card-content>
       </mat-card>
@@ -53,15 +75,17 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <ng-container *ngIf="noData$ | async"> No feeds available. </ng-container>
-      <ng-container *ngIf="loading$ | async">
-        Loading feeds. Please wait...
-      </ng-container>
       <ng-container *ngIf="feeds$ | async as feeds">
+        <ng-container *ngIf="feeds.length === 0">
+          No feeds available.
+        </ng-container>
+
         <app-feed-item
-          [value]="feed"
+          [feed]="feed"
+          (deleteFeed)="onDeleteFeed(feed)"
           *ngFor="let feed of feeds"
-        ></app-feed-item>
+        >
+        </app-feed-item>
       </ng-container>
     </div>
   </div>

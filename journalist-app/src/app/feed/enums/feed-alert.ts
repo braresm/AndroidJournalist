@@ -1,4 +1,4 @@
-enum FeedAlert {
-  ONSCREEN,
-  EMAIL,
+export enum FeedAlert {
+  ONSCREEN = 'onscreen',
+  EMAIL = 'email',
 }

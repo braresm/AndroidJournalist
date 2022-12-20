@@ -12,6 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 const ANGULAR_MATERIAL_MODULES = [
   MatButtonModule,
@@ -23,16 +26,22 @@ const ANGULAR_MATERIAL_MODULES = [
   MatFormFieldModule,
   MatSelectModule,
   MatDialogModule,
+  MatMenuModule,
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [FileUploadComponent, ConfirmDialogComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ANGULAR_MATERIAL_MODULES,
   ],
-  exports: [FormsModule, ReactiveFormsModule, ANGULAR_MATERIAL_MODULES],
+  exports: [
+    FormsModule,
+    ReactiveFormsModule,
+    ANGULAR_MATERIAL_MODULES,
+    FileUploadComponent,
+  ],
 })
 export class SharedModule {}

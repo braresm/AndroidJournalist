@@ -1,5 +1,5 @@
-enum FeedStatus {
-  READ,
-  UNREAD,
-  PROCESSED,
+export enum FeedStatus {
+  READ = 'read',
+  UNREAD = 'unread',
+  PROCESSED = 'processed',
 }
