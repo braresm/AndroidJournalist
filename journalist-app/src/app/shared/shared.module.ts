@@ -13,6 +13,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+// Custom components
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
@@ -27,6 +30,7 @@ const ANGULAR_MATERIAL_MODULES = [
   MatSelectModule,
   MatDialogModule,
   MatMenuModule,
+  DragDropModule,
 ];
 
 @NgModule({
@@ -42,6 +46,7 @@ const ANGULAR_MATERIAL_MODULES = [
     ReactiveFormsModule,
     ANGULAR_MATERIAL_MODULES,
     FileUploadComponent,
+    ConfirmDialogComponent,
   ],
 })
 export class SharedModule {}

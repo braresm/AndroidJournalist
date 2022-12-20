@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="page-header">
+        <h1>NIS Planner</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <h2>In production</h2>
+      <div
+        cdkDropList
+        #inProductionList="cdkDropList"
+        [cdkDropListData]="in_production"
+        [cdkDropListConnectedTo]="[takeList, callSortOutList]"
+        class="status-column"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="drag-item" *ngFor="let item of in_production" cdkDrag>
+          {{ item }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h2>Take</h2>
+      <div
+        cdkDropList
+        #takeList="cdkDropList"
+        [cdkDropListData]="take"
+        [cdkDropListConnectedTo]="[inProductionList, callSortOutList]"
+        class="status-column"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="drag-item" *ngFor="let item of take" cdkDrag>
+          {{ item }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h2>Call and sort out</h2>
+      <div
+        cdkDropList
+        #callSortOutList="cdkDropList"
+        [cdkDropListData]="call_sort_out"
+        [cdkDropListConnectedTo]="[inProductionList, takeList]"
+        class="status-column"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="drag-item" *ngFor="let item of call_sort_out" cdkDrag>
+          {{ item }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

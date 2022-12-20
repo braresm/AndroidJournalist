@@ -21,6 +21,7 @@ const routes: Routes = [
     path: 'feed',
     loadChildren: () => import('./feed/feed.module').then((m) => m.FeedModule),
   },
+  { path: 'planner', loadChildren: () => import('./planner/planner.module').then(m => m.PlannerModule) },
   {
     path: '**',
     component: PageNotFoundComponent,
