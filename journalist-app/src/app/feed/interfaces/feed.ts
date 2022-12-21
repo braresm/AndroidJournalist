@@ -3,7 +3,7 @@ import { FeedSource } from '../enums/feed-source';
 import { FeedStatus } from '../enums/feed-status';
 
 export interface Feed {
-  id: string;
+  id?: string;
   title: string;
   message: string;
   category: string;

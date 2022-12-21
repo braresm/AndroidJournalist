@@ -22,7 +22,7 @@ import { FeedService } from './services/feed.service';
   styleUrls: ['./feed.component.scss'],
 })
 export class FeedComponent implements OnInit {
-  destroyed$ = new Subject<void>();
+  private destroyed$ = new Subject<void>();
   feeds$!: Observable<Feed[]>;
 
   keywords = new FormControl(['']);
@@ -94,12 +94,10 @@ export class FeedComponent implements OnInit {
       .pipe(
         filter(Boolean),
         tap(async (feedData) => {
-          console.log(feedData);
           const downloadUrl = await this.fileUploadService.uploadFile(
             feedData.image
           );
           const feed: Feed = {
-            id: '',
             title: feedData.title,
             message: feedData.message,
             category: feedData.category,
@@ -118,6 +116,8 @@ export class FeedComponent implements OnInit {
   }
 
   onDeleteFeed(feed: Feed): void {
-    this.feedService.delete(feed.id);
+    if (feed.id) {
+      this.feedService.delete(feed.id);
+    }
   }
 }
