@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule, isDevMode, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 // Custom components
 import { NewsComponent } from './public/components/news/news.component';
@@ -33,8 +34,12 @@ import { SharedModule } from './shared/shared.module';
     provideStorage(() => getStorage()),
     BrowserAnimationsModule,
     SharedModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+    { provide: LOCALE_ID, useValue: 'en-US' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

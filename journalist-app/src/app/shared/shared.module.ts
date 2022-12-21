@@ -13,7 +13,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 // Custom components
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
@@ -30,7 +34,10 @@ const ANGULAR_MATERIAL_MODULES = [
   MatSelectModule,
   MatDialogModule,
   MatMenuModule,
+  MatDatepickerModule,
+  MatSnackBarModule,
   DragDropModule,
+  ClipboardModule,
 ];
 
 @NgModule({

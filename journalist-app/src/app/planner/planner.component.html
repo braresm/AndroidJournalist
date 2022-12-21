@@ -3,52 +3,98 @@
     <div class="col-12">
       <div class="page-header">
         <h1>NIS Planner</h1>
+        <div class="page-actions">
+          <button mat-flat-button color="primary" (click)="onAddPlannerItem()">
+            Add planner item
+          </button>
+        </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <h2>In production</h2>
       <div
+        id="status#0"
         cdkDropList
         #inProductionList="cdkDropList"
-        [cdkDropListData]="in_production"
-        [cdkDropListConnectedTo]="[takeList, callSortOutList]"
+        [cdkDropListData]="inProductionItems"
+        [cdkDropListConnectedTo]="[takeList, toCallList, investigateList]"
         class="status-column"
         (cdkDropListDropped)="drop($event)"
+        cdkDropListSortingDisabled="true"
       >
-        <div class="drag-item" *ngFor="let item of in_production" cdkDrag>
-          {{ item }}
+        <div class="drag-item" *ngFor="let item of inProductionItems" cdkDrag>
+          <app-planner-item
+            [item]="item"
+            class="w-100"
+            (editPlannerItem)="onEditPlannerItem(item)"
+            (deletePlannerItem)="onDeletePlannerItem(item)"
+          ></app-planner-item>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <h2>Take</h2>
       <div
+        id="status#1"
         cdkDropList
         #takeList="cdkDropList"
-        [cdkDropListData]="take"
-        [cdkDropListConnectedTo]="[inProductionList, callSortOutList]"
+        [cdkDropListData]="takeItems"
+        [cdkDropListConnectedTo]="[
+          inProductionList,
+          toCallList,
+          investigateList
+        ]"
         class="status-column"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="drag-item" *ngFor="let item of take" cdkDrag>
-          {{ item }}
+        <div class="drag-item" *ngFor="let item of takeItems" cdkDrag>
+          <app-planner-item
+            [item]="item"
+            class="w-100"
+            (deletePlannerItem)="onDeletePlannerItem(item)"
+          ></app-planner-item>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <h2>Call and sort out</h2>
+    <div class="col-md-3">
+      <h2>To call</h2>
       <div
+        id="status#2"
         cdkDropList
-        #callSortOutList="cdkDropList"
-        [cdkDropListData]="call_sort_out"
-        [cdkDropListConnectedTo]="[inProductionList, takeList]"
+        #toCallList="cdkDropList"
+        [cdkDropListData]="toCallItems"
+        [cdkDropListConnectedTo]="[inProductionList, takeList, investigateList]"
         class="status-column"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="drag-item" *ngFor="let item of call_sort_out" cdkDrag>
-          {{ item }}
+        <div class="drag-item" *ngFor="let item of toCallItems" cdkDrag>
+          <app-planner-item
+            [item]="item"
+            class="w-100"
+            (deletePlannerItem)="onDeletePlannerItem(item)"
+          ></app-planner-item>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <h2>Investigate</h2>
+      <div
+        id="status#3"
+        cdkDropList
+        #investigateList="cdkDropList"
+        [cdkDropListData]="investigateItems"
+        [cdkDropListConnectedTo]="[inProductionList, takeList, toCallList]"
+        class="status-column"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="drag-item" *ngFor="let item of investigateItems" cdkDrag>
+          <app-planner-item
+            [item]="item"
+            class="w-100"
+            (deletePlannerItem)="onDeletePlannerItem(item)"
+          ></app-planner-item>
         </div>
       </div>
     </div>
