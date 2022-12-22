@@ -11,6 +11,7 @@ import {
   tap,
 } from 'rxjs';
 import { FileUploadService } from '../shared/services/file-upload.service';
+import { SnackbarService } from '../shared/services/snackbar.service';
 import { AddFeedComponent } from './components/add-feed/add-feed.component';
 import { Feed } from './interfaces/feed';
 import { FeedFilter } from './interfaces/feed-filter';
@@ -35,6 +36,7 @@ export class FeedComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
+    private snackbarService: SnackbarService,
     private fileUploadService: FileUploadService,
     private feedService: FeedService
   ) {}
@@ -108,6 +110,7 @@ export class FeedComponent implements OnInit {
             imageUrl: downloadUrl,
             createdDate: null,
           };
+          this.snackbarService.showSuccess('Feed has been created');
           this.feedService.create(feed);
         }),
         takeUntil(this.destroyed$)
@@ -118,6 +121,7 @@ export class FeedComponent implements OnInit {
   onDeleteFeed(feed: Feed): void {
     if (feed.id) {
       this.feedService.delete(feed.id);
+      this.snackbarService.showSuccess('Feed has been deleted');
     }
   }
 }

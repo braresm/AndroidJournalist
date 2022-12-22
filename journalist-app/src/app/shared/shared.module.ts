@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -36,6 +37,7 @@ const ANGULAR_MATERIAL_MODULES = [
   MatMenuModule,
   MatDatepickerModule,
   MatSnackBarModule,
+  MatAutocompleteModule,
   DragDropModule,
   ClipboardModule,
 ];

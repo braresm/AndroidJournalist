@@ -10,5 +10,7 @@ export interface PlannerItem {
   location: string;
   contactPerson: string;
   category: string;
+  active: Boolean;
   createdDate: any;
+  feedId: string;
 }

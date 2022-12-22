@@ -11,6 +11,8 @@ import {
   updateDoc,
   deleteDoc,
   collectionData,
+  query,
+  where,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { PlannerItem } from '../interfaces/planner-item';
@@ -49,7 +51,12 @@ export class PlannerService {
   }
 
   getPlannerItems() {
-    return collectionData(this.plannerItemsCollection, {
+    const plannerQuery = query(
+      this.plannerItemsCollection,
+      where('active', '==', true)
+    );
+
+    return collectionData(plannerQuery, {
       idField: 'id',
     }) as Observable<PlannerItem[]>;
   }

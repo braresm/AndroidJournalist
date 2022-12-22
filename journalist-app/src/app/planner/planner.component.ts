@@ -9,7 +9,9 @@ import {
   filter,
   map,
   Observable,
+  of,
   Subject,
+  switchMap,
   takeUntil,
   tap,
   throwError,
@@ -20,6 +22,10 @@ import { PlannerService } from './services/planner.service';
 import { PlannerItem } from './interfaces/planner-item';
 import { SnackbarService } from '../shared/services/snackbar.service';
 import { PlannerItemStatus } from './enums/planner-item-status';
+import { Newsroom } from './interfaces/newsroom';
+import { FeedService } from './services/feed.service';
+import { NewsroomService } from './services/newsroom.service';
+import { NewsroomCategory } from './enums/newsroom-category';
 
 @Component({
   selector: 'app-planner',
@@ -46,7 +52,9 @@ export class PlannerComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snackbarService: SnackbarService,
-    private plannerService: PlannerService
+    private plannerService: PlannerService,
+    private newsroomService: NewsroomService,
+    private feedService: FeedService
   ) {}
 
   ngOnInit(): void {
@@ -110,7 +118,9 @@ export class PlannerComponent implements OnInit {
               contactPerson: data.contactPerson,
               date: data.date,
               location: data.location,
+              active: data.active,
               createdDate: data.createdDate,
+              feedId: data.feedId,
             };
 
             this.plannerService.update(plannerItem);
@@ -127,7 +137,9 @@ export class PlannerComponent implements OnInit {
               contactPerson: data.contactPerson,
               date: data.date,
               location: data.location,
+              active: true,
               createdDate: null,
+              feedId: data.feedTopic.id,
             };
             this.plannerService.create(plannerItem);
             this.snackbarService.showSuccess(
@@ -173,6 +185,45 @@ export class PlannerComponent implements OnInit {
     }
   }
 
+  onPublishPlannerItem(plannerItem: PlannerItem): void {
+    if (!plannerItem.feedId) {
+      this.snackbarService.showError(
+        'Item cannot be published because does not have a feed assigned'
+      );
+    }
+
+    this.feedService
+      .getFeed(plannerItem.feedId)
+      .pipe(
+        switchMap((feed) => {
+          const newsroomCategory = this.getNewsroomCategory(plannerItem);
+          if (newsroomCategory) {
+            const newsroom: Newsroom = {
+              title: feed['title'],
+              message: feed['message'],
+              category: newsroomCategory,
+              createdDate: undefined,
+            };
+            this.newsroomService.create(newsroom);
+            this.snackbarService.showSuccess(
+              `Planner item has been published.`
+            );
+          }
+          return of(null);
+        }),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
+  }
+
+  onClosePlannerItem(plannerItem: PlannerItem): void {
+    plannerItem.active = false;
+    this.plannerService.update(plannerItem);
+    this.snackbarService.showSuccess(
+      `Planner ${plannerItem.title} has been closed`
+    );
+  }
+
   onEditPlannerItem(plannerItem: PlannerItem): void {
     this.onAddPlannerItem(plannerItem);
   }
@@ -180,5 +231,23 @@ export class PlannerComponent implements OnInit {
     if (plannerItem.id) {
       this.plannerService.delete(plannerItem.id);
     }
+  }
+
+  private getNewsroomCategory(
+    plannerItem: PlannerItem
+  ): NewsroomCategory | null {
+    if (plannerItem.category === 'radio') {
+      return NewsroomCategory.RADIO;
+    }
+    if (plannerItem.category === 'tv') {
+      return NewsroomCategory.TV;
+    }
+    if (plannerItem.category === 'online') {
+      return NewsroomCategory.ONLINE;
+    }
+    if (plannerItem.category === 'socialmedia') {
+      return NewsroomCategory.SOCIAL_MEDIA;
+    }
+    return null;
   }
 }

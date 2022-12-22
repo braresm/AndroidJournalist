@@ -6,9 +6,18 @@
         <mat-icon>more_horiz</mat-icon>
       </button>
       <mat-menu #plannerItemOptions="matMenu">
+        <button mat-menu-item (click)="onPublish()">
+          <mat-icon aria-hidden="false" fontIcon="published_with_changes">
+          </mat-icon>
+          Publish to newsroom
+        </button>
         <button mat-menu-item (click)="onCopy()">
           <mat-icon aria-hidden="false" fontIcon="content_copy"></mat-icon>
           Copy
+        </button>
+        <button mat-menu-item (click)="onClose()">
+          <mat-icon aria-hidden="false" fontIcon="close"></mat-icon>
+          Close
         </button>
         <button mat-menu-item (click)="onEdit()">
           <mat-icon aria-hidden="false" fontIcon="edit"></mat-icon>

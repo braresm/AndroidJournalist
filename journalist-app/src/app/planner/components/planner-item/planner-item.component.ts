@@ -13,6 +13,8 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 export class PlannerItemComponent implements OnInit {
   @Input() item!: PlannerItem;
 
+  @Output() publishPlannerItem = new EventEmitter<void>();
+  @Output() closePlannerItem = new EventEmitter<void>();
   @Output() editPlannerItem = new EventEmitter<void>();
   @Output() deletePlannerItem = new EventEmitter<void>();
 
@@ -26,9 +28,17 @@ export class PlannerItemComponent implements OnInit {
 
   ngOnDestroy() {}
 
+  onPublish(): void {
+    this.publishPlannerItem.emit();
+  }
+
   onCopy(): void {
     this.clipboard.copy(this.item.title);
     this.snackbarService.showInfo('Text was copied to clipboard');
+  }
+
+  onClose(): void {
+    this.closePlannerItem.emit();
   }
 
   onEdit(): void {
