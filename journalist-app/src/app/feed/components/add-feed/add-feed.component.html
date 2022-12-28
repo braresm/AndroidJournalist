@@ -91,7 +91,10 @@
       </mat-form-field>
     </div>
     <div>
-      <app-file-upload formControlName="image"></app-file-upload>
+      <app-file-upload
+        formControlName="image"
+        acceptExtensions=".png,.jpg,.jpeg"
+      ></app-file-upload>
     </div>
   </form>
 </mat-dialog-content>

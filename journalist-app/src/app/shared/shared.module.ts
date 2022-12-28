@@ -16,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatTableModule } from '@angular/material/table';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -23,6 +24,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 // Custom components
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { UploadFileDialogComponent } from './components/upload-file-dialog/upload-file-dialog.component';
 
 const ANGULAR_MATERIAL_MODULES = [
   MatButtonModule,
@@ -38,12 +40,17 @@ const ANGULAR_MATERIAL_MODULES = [
   MatDatepickerModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatTableModule,
   DragDropModule,
   ClipboardModule,
 ];
 
 @NgModule({
-  declarations: [FileUploadComponent, ConfirmDialogComponent],
+  declarations: [
+    FileUploadComponent,
+    ConfirmDialogComponent,
+    UploadFileDialogComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -56,6 +63,7 @@ const ANGULAR_MATERIAL_MODULES = [
     ANGULAR_MATERIAL_MODULES,
     FileUploadComponent,
     ConfirmDialogComponent,
+    UploadFileDialogComponent,
   ],
 })
 export class SharedModule {}

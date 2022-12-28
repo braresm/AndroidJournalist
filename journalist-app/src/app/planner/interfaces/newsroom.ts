@@ -5,5 +5,6 @@ export interface Newsroom {
   title: string;
   message: string;
   category: NewsroomCategory;
+  files: string[]; // list of archive ids
   createdDate: any;
 }

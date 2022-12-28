@@ -14,6 +14,14 @@
           <mat-icon>more_horiz</mat-icon>
         </button>
         <mat-menu #newsOptions="matMenu">
+          <button mat-menu-item (click)="onUploadFile()">
+            <mat-icon aria-hidden="false" fontIcon="attach_file"></mat-icon>
+            Upload file
+          </button>
+          <button mat-menu-item (click)="onViewFiles()">
+            <mat-icon aria-hidden="false" fontIcon="visibility"></mat-icon>
+            View files
+          </button>
           <button mat-menu-item (click)="onDelete()">
             <mat-icon aria-hidden="false" fontIcon="delete"></mat-icon>
             Delete

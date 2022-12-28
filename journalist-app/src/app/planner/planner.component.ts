@@ -186,6 +186,7 @@ export class PlannerComponent implements OnInit {
   }
 
   onPublishPlannerItem(plannerItem: PlannerItem): void {
+    console.log(plannerItem);
     if (!plannerItem.feedId) {
       this.snackbarService.showError(
         'Item cannot be published because does not have a feed assigned'
@@ -196,12 +197,14 @@ export class PlannerComponent implements OnInit {
       .getFeed(plannerItem.feedId)
       .pipe(
         switchMap((feed) => {
+          console.log(feed);
           const newsroomCategory = this.getNewsroomCategory(plannerItem);
           if (newsroomCategory) {
             const newsroom: Newsroom = {
               title: feed['title'],
               message: feed['message'],
               category: newsroomCategory,
+              files: [],
               createdDate: undefined,
             };
             this.newsroomService.create(newsroom);

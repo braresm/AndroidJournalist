@@ -9,6 +9,7 @@ import { SocialMediaNewsComponent } from './components/social-media-news/social-
 import { RadioNewsComponent } from './components/radio-news/radio-news.component';
 import { SharedModule } from '../shared/shared.module';
 import { NewsItemComponent } from './components/news-item/news-item.component';
+import { NewsItemFilesComponent } from './components/news-item-files/news-item-files.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NewsItemComponent } from './components/news-item/news-item.component';
     SocialMediaNewsComponent,
     RadioNewsComponent,
     NewsItemComponent,
+    NewsItemFilesComponent,
   ],
   imports: [CommonModule, NewsroomRoutingModule, SharedModule],
 })

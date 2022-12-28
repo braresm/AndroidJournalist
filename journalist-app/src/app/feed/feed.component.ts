@@ -96,7 +96,8 @@ export class FeedComponent implements OnInit {
       .pipe(
         filter(Boolean),
         tap(async (feedData) => {
-          const downloadUrl = await this.fileUploadService.uploadFile(
+          const uploadResult = await this.fileUploadService.uploadFile(
+            'feeds',
             feedData.image
           );
           const feed: Feed = {
@@ -107,7 +108,7 @@ export class FeedComponent implements OnInit {
             status: feedData.status,
             alert: null,
             keywords: feedData.keywords,
-            imageUrl: downloadUrl,
+            imageUrl: uploadResult.downloadUrl,
             createdDate: null,
           };
           this.snackbarService.showSuccess('Feed has been created');

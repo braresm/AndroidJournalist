@@ -2,7 +2,7 @@
   <span>{{ file ? file.name : "" }}</span>
   <input
     type="file"
-    accept=".png,.jpg,.jpeg"
+    [accept]="acceptExtensions"
     class="file-input"
     #fileUploadInput
   />
@@ -15,6 +15,6 @@
   </button>
   <div class="upload-hint">
     <mat-icon aria-hidden="false" class="hint-icon">info</mat-icon>
-    Accepted file extension .png, .jpg, .jpeg
+    Accepted file extension {{ acceptExtensions }}
   </div>
 </div>

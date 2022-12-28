@@ -13,12 +13,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 // Custom components
-import { NewsComponent } from './public/components/news/news.component';
 import { PageNotFoundComponent } from './public/components/page-not-found/page-not-found.component';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, NewsComponent, PageNotFoundComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

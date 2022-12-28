@@ -7,6 +7,7 @@ import {
   doc,
   docData,
   serverTimestamp,
+  documentId,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -16,6 +17,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { NewsroomCategory } from '../enums/newsroom-category';
+import { Archive } from '../interfaces/archive';
 import { Newsroom } from '../interfaces/newsroom';
 
 @Injectable({
@@ -23,9 +25,11 @@ import { Newsroom } from '../interfaces/newsroom';
 })
 export class NewsroomService {
   private newsroomCollection: CollectionReference<DocumentData>;
+  private archiveCollection: CollectionReference<DocumentData>;
 
   constructor(private readonly firestore: Firestore) {
     this.newsroomCollection = collection(this.firestore, 'newsrooms');
+    this.archiveCollection = collection(this.firestore, 'archives');
   }
 
   getNewsroom(id: string) {
@@ -57,5 +61,21 @@ export class NewsroomService {
     return collectionData(newsroomQuery, {
       idField: 'id',
     }) as Observable<Newsroom[]>;
+  }
+
+  getNewsroomFiles(newsroom: Newsroom) {
+    const archiveQuery = query(
+      this.archiveCollection,
+      where(documentId(), 'in', newsroom.files)
+    );
+
+    return collectionData(archiveQuery, {
+      idField: 'id',
+    }) as Observable<Archive[]>;
+  }
+
+  deleteNewsroomFile(id: string) {
+    const documentReference = doc(this.firestore, `archives/${id}`);
+    return deleteDoc(documentReference);
   }
 }
